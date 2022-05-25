@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                        green: '#32CD32'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="w-full min-h-screen font-sans text-gray-900 bg-gradient-to-br from-transparent to-green-100" :class="sidebarOpen ? 'overflow-hidden h-screen' : ''">
+
+        <nav class="flex justify-between items-center py-8 px-6 mx-auto max-w-screen-xl md:px-12 lg:px-16 xl:px-24">
+            <a href="#" class="text-2xl md:text-3xl font-bold tracking-wide text-clifford">
+                EduMishi's Restaurant<span class="text-green"></span>
+            </a>
+            <div class="inset-0 transition-all bg-white/70 backdrop-blur-xl z-20 md:static md:bg-transparent md:flex items-center justify-center space-y-8 md:space-y-0 md:space-x-8 flex-col md:flex-row lg:space-x-14" :class="sidebarOpen ? 'fixed flex' : 'hidden'">
+                <ul class="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-6 lg:md:-x-8">
+                    <li v-for="menu in menus" class="text-lg md:text-base lg:text-lg font-medium group" :class="{ 'text-green': activeMenu === menu }">
+                        <a href="#"> {{ menu }} </a>
+                        <div class="h-0.5 bg-green scale-x-0 group-hover:scale-100 transition-transform origin-left rounded-full duration-300 ease-out">
+                    </li>
+                </ul>
+
+                </div>
+                <button @click="sidebarOpen = !sidebarOpen" class="block md:hidden relative z-30">
+                <HamburgerIcon class="w-8 h-8 fill-current text-gray-900" />
+            </button>
+        </nav>
+
+        <div class="flex flex-wrap-reverse gap-y-24 justify-between py-12 px-6 mx-auto max-w-screen-xl sm:px-8 md:px-12 lg:px-16 xl:px-24">
+            <div class="relative z-10 md:w-1/2 w-full">
+                <span class="flex items-center px-1 text-xl text-green">
+                    <span class="font-medium">100% Italian xd</span>
+                </span>
+                <h1 class="pt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight whitespace-nowrap">
+                    Healthy Lifestyle <br /> is your only <br />
+                    <span class="whitespace-nowrap text-green"> unfair advantage </span>
+                </h1>
+                <p class="pt-8 sm:text-lg max-w-md font-normal text-gray-600 leading-relaxed">
+                    Choose healthy habits with EduMishi's daily meal prepared by our expert nutritionist and chef
+                </p>
+                <div class="flex pt-8 space-x-4 sm:space-x-6">
+
+                    <button class="flex justify-center items-center w-full sm:w-auto h-13 px-8 font-medium text-gray-900 border border-gray-900 rounded-xl whitespace-nowrap hover:shadow-xl transition-shadow duration-300">Explore
+                        menu
+                    </button>
+
+                </div>
+            </div>
+
+</body>
+
+</html>
