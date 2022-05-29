@@ -108,24 +108,90 @@
 
         <nav id="site-menu" class="flex flex-col sm:flex-row w-full justify-between items-center px-4 sm:px-6 py-1 bg-white shadow sm:shadow-none border-t-4 border-red-900">
           <div class="w-full sm:w-auto self-start sm:self-center flex flex-row sm:flex-none flex-no-wrap justify-between items-center">
-            <a href="#" class="no-underline py-1"><h1 class="font-bold text-lg tracking-widest text-red-900">EduMishi's Restaurant
-              </h1></a>
-              <a href="#">
-                  <!--<img src="../static/img/carrito-de-compras.png" alt="">-->
-              </a>
+            <a href="#" aria-label="logo" class="flex space-x-2 items-center">
+              <img src="https://e7.pngegg.com/pngimages/801/880/png-clipart-pizza-pizza-sticker-pepperoni-salami-pizza-food-orange-thumbnail.png" class="w-12" alt="logo" width="133" height="122">
+              <span class="text-2xl font-bold text-yellow-900">Edumishi's <span class="text-yellow-700">Restaurant</span></span>
+            </a>
             <button id="menuBtn" class="hamburger block sm:hidden focus:outline-none" type="button" onclick="navToggle();">
               <span class="hamburger__top-bun"></span><span class="hamburger__bottom-bun"></span>
             </button>
           </div>
           <div id="menu" class="w-full sm:w-auto self-end sm:self-center sm:flex flex-col sm:flex-row items-center h-full py-1 pb-4 sm:py-0 sm:pb-0 hidden">
-            <a class="text-dark font-bold hover:text-red text-lg w-full no-underline sm:w-auto sm:pr-4 py-2 sm:py-1 sm:pt-2" href="">Carrito</a>
-            <a class="text-dark font-bold hover:text-red text-lg w-full no-underline sm:w-auto sm:px-4 py-2 sm:py-1 sm:pt-2" href="">menu</a>
-            <a class="text-dark font-bold hover:text-red text-lg w-full no-underline sm:w-auto sm:px-4 py-2 sm:py-1 sm:pt-2" href="">Login</a>
+            <div class="text-gray-600 lg:pr-4">
+              <ul class="space-y-6 tracking-wide font-medium text-sm md:flex md:space-y-0">
+                  <li><a href="#" class="block md:px-4 transition hover:text-yellow-700"><span>Menu</span></a></li>
+                  <li><a href="#" class="block md:px-4 transition hover:text-yellow-700"><span>Carrito</span></a></li>
+                  <li><a href="#" class="block md:px-4 transition hover:text-yellow-700"><span>Perfil</span></a></li>
+              </ul>
+            </div>
+            <div class="w-full space-y-2 border-yellow-200 lg:space-y-0 md:w-max lg:border-l">
+              <!--
+                if not login blablabla
+              -->
+              <button type="button" title="Start buying" class="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
+                  <span class="block text-yellow-800 font-semibold text-sm">
+                      Registrarse
+                  </span>
+              </button>
+              <button type="button" title="Start buying" class="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
+                  <span class="block text-yellow-900 font-semibold text-sm">
+                      Iniciar Sesion
+                  </span>
+              </button>
 
+              <!--
+                else
+
+                <button type="button" title="Start buying" class="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
+                  <span class="block text-yellow-900 font-semibold text-sm">
+                    Cerrar sesion
+                  </span>
+              </button>
+
+
+              -->
+
+          </div>
         </div>
         </nav>
       </header>
     {% block template %}{%endblock%}
+
+
+    <footer class="text-gray-600 body-font">
+      
+      <div class="bg-gray-100">
+        <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
+          <p class="text-gray-500 text-sm text-center sm:text-left">© 2020 Tailblocks —
+            <a href="https://twitter.com/knyttneve" rel="noopener noreferrer" class="text-gray-600 ml-1" target="_blank">@knyttneve</a>
+          </p>
+          <span class="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
+            <a class="text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+                <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                <circle cx="4" cy="4" r="2" stroke="none"></circle>
+              </svg>
+            </a>
+          </span>
+        </div>
+      </div>
+    </footer>
 
       <script>
           var nav = document.getElementById('site-menu');
