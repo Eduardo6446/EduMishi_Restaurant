@@ -4,5 +4,9 @@ from django.shortcuts import render
 from . import views
 
 urlpatterns = [
-    path("", views.index, name="idexn")
+    path("home", views.index, name="index"),
+    path("home/login", views.login, name="login"),
+    path("home/register", views.register, name="register"),
+    path("home/cart", views.cart, name="cart")
+
 ]
