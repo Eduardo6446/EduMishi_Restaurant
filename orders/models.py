@@ -8,7 +8,7 @@ User = get_user_model()
 
 # Create your models here.
 
-"""
+
 class Menu_Item(models.Model):
 
     MENU_CATEGORIES = (
@@ -34,26 +34,24 @@ class Menu_Item(models.Model):
     ('XL', 'Extra_Large')
     )
 
-    #get rid of choices.
 
-    #can get rid of the choices if someone wanted to add more categories
     category = models.CharField(max_length=36, null=True, blank=True,
                                 choices=MENU_CATEGORIES,
-                                help_text='Enter the category of the menu item')
+                                help_text='Categoría del elemento del menú.')
 
     name = models.CharField(max_length=128,
-                            help_text='Enter name of the menu item')
+                            help_text='Nombre del elemento del menú')
 
     price =  models.DecimalField(max_digits=4, null=True, blank=True,
                                 decimal_places=2, default=0.00)
 
     sizes = models.CharField(max_length=4, null=True, blank=True,
                                 choices=SIZE_CATEGORIES,
-                                help_text='Enter the allowable sizes \
-                                            of the menu item')
+                                help_text='Ingrese el tamaños \
+                                            del elemento del menú')
 
     toppings = models.CharField( max_length=400, blank=True, null=True,
-                                help_text='Enter toppings')
+                                help_text='Introducir ingredientes')
 
     num_toppings = models.CharField(max_length=10, blank=True, null=True)
 
@@ -78,17 +76,17 @@ class Topping(models.Model):
         return f"{self.topping_name}"
 
 class Extras(models.Model):
-    name = models.CharField(max_length=64, help_text='Enter name of the extra')
+    name = models.CharField(max_length=64, help_text='Introduce el nombre del extra')
 
     price = models.DecimalField(max_digits=4,decimal_places=2,
-                        default=0, help_text='Enter price of the extra')
+                        default=0, help_text='Introduzca el precio del extra')
 
     def __str__(self):
         return f"{self.name} - {self.price}"
 
 
 
-# use my custom user model and save when user is created.
+# use mi modelo de usuario personalizado y guárdelo cuando se cree el usuario.
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
@@ -135,11 +133,11 @@ class Order(models.Model):
     ordered_items = models.ManyToManyField(OrderItem)
     date_ordered = models.DateTimeField(auto_now=True)
 
-    # reutrn number of ordered items.
+    # retorna las ordenes
     def num_order_items(self):
         return self.order_items.count()
 
-    #get all the orders ordered_items
+    #obtener todos los pedidos
     def get_cart_ordered_items(self):
         return self.ordered_items.all()
         #exclude(is_topping=True)
@@ -165,4 +163,3 @@ class Order(models.Model):
         Ordered Items:{self.ordered_items.all()} -- \
         "
 
-"""
