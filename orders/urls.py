@@ -3,10 +3,12 @@ from django.shortcuts import render
 
 from . import views
 
+app_name = 'orders'
+
 urlpatterns = [
-    path("home", views.index, name="index"),
-    path("home/login", views.login, name="login"),
-    path("home/register", views.register, name="register"),
-    path("home/cart", views.cart, name="cart")
+    path("", views.index, name="index"),
+    path("login", views.login_view, name="login"),
+    path("register", views.register_view, name="register"),
+    path("logout", views.logout_view, name="logout"),
 
 ]

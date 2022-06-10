@@ -1,0 +1,79 @@
+{% extends "layout.html" %} {%block template%}
+
+
+
+<section class="py-20 2xl:py-30">
+    <div class="container px-4 pb-20 mx-auto border-b border-gray-500">
+        <div class="mb-14 text-center">
+            <h2 class="mt-8 text-5xl font-bold font-heading text-gray">Carrito de
+
+            </h2>
+        </div>
+        <div class="pt-20 border-t border-gray-500 overflow-x-auto overflow-y-hidden">
+            <table class="table-auto w-full mb-10">
+                <thead>
+                    <tr class="text-lg text-left font-bold">
+                        <th class="pb-6 pr-8">Producto</th>
+                        <th class="pb-6 pr-8">Tamaño</th>
+                        <th class="pb-6 pr-8">extras</th>
+                        <th class="pb-6 pr-8">precio</th>
+                        <th class="pb-6 pr-8"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-xl">
+                        <td class="py-5 text-left">Nombre de comida</td>
+                        <td>lg</td>
+                        <td>
+                            <div class="m-1">
+                                <button class="border border-esmerald-300 hover:border-slate-400" id="menu-btn">extras</button>
+
+                                <div class="bg-gray-200 hidden flex-col rounded mt-1 p-2 text-sm w-32" id="dropdown">
+                                    <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Posts</a>
+                                    <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Profile</a>
+                                    <a href="#" class="px-2 py-1 hover:bg-blue-300 rounded">Settings</a>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>200$</td>
+                        <td><button class="text-white bg-red-500 border-0 py-2 px-7 focus:outline-none hover:bg-red-600 rounded text-lg">eliminar</button></td>
+                    </tr>
+                    <tr class="text-xl">
+                </tbody>
+            </table>
+            <div class="flex justify-center">
+                <div class=" mr-1 flex items-center">
+                    <p class="mr-3 text-3xl font-bold">
+                        Confirmar compra
+                    </p>
+                    <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Comprar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const menuBtn = document.querySelector('#menu-btn')
+        const dropdown = document.querySelector('#dropdown')
+
+        menuBtn.addEventListener('click', () => {
+            /*if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+                dropdown.classList.add('flex');
+            } else {
+                dropdown.classList.remove('flex')
+                dropdown.classList.add('hidden')
+            }
+            */
+            dropdown.classList.toggle('hidden')
+            dropdown.classList.toggle('flex')
+        })
+
+    })
+</script>
+
+{%endblock%}
