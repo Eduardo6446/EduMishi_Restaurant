@@ -17,6 +17,7 @@ import datetime
 
 
 # Create your views here.
+
 @login_required()
 def index(request):
 
@@ -49,6 +50,7 @@ def index(request):
     }
     return render(request, "orders/index.html", context)
 
+
 def login_view(request):
 
     if request.method == "GET":
@@ -65,12 +67,14 @@ def login_view(request):
     else:
         return render(request, "orders/login.html", {"message": "Datos invalidos."})
 
+
 def logout_view(request):
 
     logout(request)
 
     return render(request, "orders/login.html",
         {"message": "Saliste de la cuenta."})
+
 
 def register_view(request):
 
@@ -84,7 +88,7 @@ def register_view(request):
     password = request.POST['password']
     password_confirmation = request.POST['confirm_password']
 
-    """ validate credentials server side"""
+    #validacoin de registro
     if not user:
         return render(request, 'orders/register.html',
                         {"message": "ponga el usuario ombe."})
@@ -97,7 +101,7 @@ def register_view(request):
         return render(request, 'orders/register.html',
         {"message": "xd"})
 
-    # Email validation required.
+    # validacion de Email.
     if not password or not password_confirmation:
         return render(request, 'orders/register.html',
         {"message": "ingrese algo valido"})
@@ -134,6 +138,7 @@ def profile(request):
 
     return render(request, "orders/profile.html", context)
 
+
 def allorders(request):
 
     profiles = Profile.objects.all()
@@ -142,6 +147,7 @@ def allorders(request):
     context = { 'all_orders': all_orders}
 
     return render(request, "orders/allorders.html", context)
+
 
 @login_required()
 def get_user_pending_order(request):
@@ -153,6 +159,7 @@ def get_user_pending_order(request):
         return order[0]
     return 0
 
+
 @login_required()
 def check(request, **kwargs):
     existing_order = get_user_pending_order(request)
@@ -162,3 +169,5 @@ def check(request, **kwargs):
     }
 
     return render(request, 'orders/check.html', context)
+
+    
