@@ -142,3 +142,23 @@ def allorders(request):
     context = { 'all_orders': all_orders}
 
     return render(request, "orders/allorders.html", context)
+
+@login_required()
+def get_user_pending_order(request):
+    # obtener el pedido para el usuario correcto
+    user_profile = get_object_or_404(Profile, user=request.user)
+    order = Order.objects.filter(owner=user_profile, is_ordered=False)
+    if order.exists():
+        # obtener el único pedido en la lista de pedidos filtrados con is_ordered = False
+        return order[0]
+    return 0
+
+@login_required()
+def check(request, **kwargs):
+    existing_order = get_user_pending_order(request)
+
+    context = {
+        'order': existing_order,
+    }
+
+    return render(request, 'orders/check.html', context)
