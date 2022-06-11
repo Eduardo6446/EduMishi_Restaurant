@@ -1,3 +1,4 @@
+from textwrap import dedent
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -12,6 +13,16 @@ from .models import (Topping, Menu_Item, Profile,
 Extras, Order, OrderItem,  User, )
 
 import datetime
+
+def profile(request):
+
+    my_user_profile = Profile.objects.filter(user=request.user).first()
+    my_orders = Order.objects.filter(is_ordered=True, owner=my_user_profile)
+
+
+    context = { 'my_orders': my_orders, 'user': request.user}
+
+    return render(request, "orders/profile.html", context)
 
 # Create your views here.
 @login_required()
