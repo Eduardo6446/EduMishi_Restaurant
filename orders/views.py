@@ -14,15 +14,7 @@ Extras, Order, OrderItem,  User, )
 
 import datetime
 
-def profile(request):
 
-    my_user_profile = Profile.objects.filter(user=request.user).first()
-    my_orders = Order.objects.filter(is_ordered=True, owner=my_user_profile)
-
-
-    context = { 'my_orders': my_orders, 'user': request.user}
-
-    return render(request, "orders/profile.html", context)
 
 # Create your views here.
 @login_required()
@@ -95,34 +87,34 @@ def register_view(request):
     """ validate credentials server side"""
     if not user:
         return render(request, 'orders/register.html',
-                        {"message": "No username."})
+                        {"message": "ponga el usuario ombe."})
 
     if len(user) < 4:
         return render(request, 'orders/register.html',
-         {"message": "Username should be longer than 4 characters."})
+         {"message": "mayor a 4 caracteres."})
 
     if not email:
         return render(request, 'orders/register.html',
-        {"message": "Please enter a Proper Email."})
+        {"message": "xd"})
 
     # Email validation required.
     if not password or not password_confirmation:
         return render(request, 'orders/register.html',
-        {"message": "Please enter a valid password."})
+        {"message": "ingrese algo valido"})
 
     if password != password_confirmation:
         return render(request, 'orders/register.html',
-        {"message": "Passwords don't match. Please re-enter passwords"})
+        {"message": "no coincide"})
 
     if len(password) < 4 or len(password_confirmation) < 4 :
         return render(request, 'orders/register.html',
-        {"message": "Password must be at least 4 charachters long."})
+        {"message": "La contraseña debe ser mayor a 4 ."})
 
     try:
         User.objects.create_user(user, email, password)
     except:
         return render(request, 'orders/register.html',
-        {"message": "Registration failed."})
+        {"message": "Algo a fallado al registrarte."})
 
     if first_name:
         User.first_name = first_name
@@ -130,3 +122,23 @@ def register_view(request):
         User.last_name = last_name
     return HttpResponseRedirect(reverse('orders:login'))
 
+
+@login_required()
+def profile(request):
+
+    my_user_profile = Profile.objects.filter(user=request.user).first()
+    my_orders = Order.objects.filter(is_ordered=True, owner=my_user_profile)
+
+
+    context = { 'my_orders': my_orders, 'user': request.user}
+
+    return render(request, "orders/profile.html", context)
+
+def allorders(request):
+
+    profiles = Profile.objects.all()
+    all_orders = Order.objects.filter(is_ordered=True)
+
+    context = { 'all_orders': all_orders}
+
+    return render(request, "orders/allorders.html", context)
