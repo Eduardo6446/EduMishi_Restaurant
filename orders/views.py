@@ -131,7 +131,7 @@ def register_view(request):
 def profile(request):
 
     my_user_profile = Profile.objects.filter(user=request.user).first()
-    my_orders = Order.objects.filter(is_ordered=True, owner=my_user_profile)
+    my_orders = Order.objects.filter(is_ordered=False, owner=my_user_profile) #ojo aqui tambien
 
 
     context = { 'my_orders': my_orders, 'user': request.user}
@@ -142,7 +142,7 @@ def profile(request):
 def allorders(request):
 
     profiles = Profile.objects.all()
-    all_orders = Order.objects.filter(is_ordered=True)
+    all_orders = Order.objects.filter(is_ordered=False)#ojoooooooooooooooooo aqui si no esta ordenado no sale
 
     context = { 'all_orders': all_orders}
 

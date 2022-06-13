@@ -22,66 +22,67 @@
 
             <tbody class="text-cyan-900 text-center">
                 {% for order in all_orders.all %}
-                    <tr class="bg-cyan-200 hover:bg-cyan-100 cursor-pointer duration-300">
+                    <tr class="">
                         <td class="py-3 px-6">{{order.owner}}</td>
                         <td class="py-3 px-6">{{ order.date_ordered }}</td>
-                        <td class="py-3 px-6">{% for item in order.ordered_items.all %}
+                        <td class="py-3 px-6">
+                            
+                            {% for item in order.ordered_items.all %}
 
 
-
-                            {%if item.menu_item.category == "Pizza" and "Topping" in item.menu_item.name %}
-                      
-                            {% if item.ptoppings != False %}
-                            {{item.menu_item.sizes}}
-                            {{ item.menu_item.name }}
-                            Toppings: {{ item.ptoppings }} ;
-                      
-                            {% endif %}
-                      
-                            {% endif %}
-                      
-                            {%if item.menu_item.category == "Pizza" and "Topping" not in item.menu_item.name %}
-                      
-                            {{item.menu_item.sizes}}
-                            {{ item.menu_item.name }} ;
-                      
-                            {% endif %}
-                      
-                      
-                      
-                            <!-- subs with no extras -->
-                      
-                            {% if item.menu_item.category == "Subs" and item.num_extras == 0 %}
-                      
-                      
-                            {{item.menu_item.sizes}}
-                      
-                            {{ item.menu_item.name }}
-                      
-                      
-                            {% endif %}
-                      
-                      
-                            <!-- subs with extras -->
-                      
-                      
-                            {% if item.num_extras > 0 %}
-                      
-                              {{item.menu_item.sizes}}
-                            {{ item.menu_item.name }}
-                            Extras: {{ item.extras }} ;
-                      
-                            {% endif %}
-                      
-                            {% if item.menu_item.category != "Pizza" and item.menu_item.category != "Subs" %}
-                      
-                            {% if item.menu_item.sizes%}
-                            {{item.menu_item.sizes}}
-                            {% endif %}
-                      
-                            {{ item.menu_item.name }} ;
-                      
-                            {% endif %}
+                                {%if item.menu_item.category == "Pizza" and "Topping" in item.menu_item.name %}
+                        
+                                {% if item.ptoppings != False %}
+                                {{item.menu_item.sizes}}
+                                {{ item.menu_item.name }}
+                                Toppings: {{ item.ptoppings }} ;
+                        
+                                {% endif %}
+                        
+                                {% endif %}
+                        
+                                {% if item.menu_item.category == "Pizza" and "Topping" not in item.menu_item.name %}
+                        
+                                    {{item.menu_item.sizes}}
+                                    {{ item.menu_item.name }} 
+                        
+                                {% endif %}
+                        
+                        
+                        
+                                <!-- subs with no extras -->
+                        
+                                {% if item.menu_item.category == "Subs" and item.num_extras == 0 %}
+                        
+                        
+                                    {{item.menu_item.sizes}}
+                            
+                                    {{ item.menu_item.name }}
+                        
+                        
+                                {% endif %}
+                        
+                        
+                                <!-- subs with extras -->
+                        
+                        
+                                {% if item.num_extras > 0 %}
+                        
+                                    {{item.menu_item.sizes}}
+                                    {{ item.menu_item.name }}
+                                    Extras: {{ item.extras }}
+                        
+                                {% endif %}
+                        
+                                {% if item.menu_item.category != "Pizza" and item.menu_item.category != "Subs" %}
+                        
+                                    {% if item.menu_item.sizes%}
+                                        {{item.menu_item.sizes}}
+                                    {% endif %}
+                        
+                                    {{ item.menu_item.name }} ;
+                        
+                                {% endif %}
                       
                       
                             {% endfor %}
@@ -90,10 +91,10 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td class="py-3 px-6"></td>
+                        <td class="py-3 px-6">:)</td>
                         <td class="py-3 px-6"> You have no orders.</td>
-                        <td class="py-3 px-6"></td>
-                        <td class="py-3 px-6"></td>
+                        <td class="py-3 px-6">:)</td>
+                        <td class="py-3 px-6">:)</td>
                     </tr>
                 {% endfor %}
 
