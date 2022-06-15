@@ -16,3 +16,5 @@ urlpatterns = [
 
 
 ]
+
+#<td> <a> <button type="submit" href="{% url 'orders:updaterecords' order.id %}" class="pull-right btn btn-primary">Checkout</button></a></td>

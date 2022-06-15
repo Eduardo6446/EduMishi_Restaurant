@@ -18,7 +18,7 @@ import datetime
 
 # Create your views here.
 
-@login_required()
+@login_required(redirect_field_name='')
 def index(request):
 
     if not request.user.is_authenticated:
