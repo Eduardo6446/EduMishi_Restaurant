@@ -1,0 +1,105 @@
+{% extends 'orders/layout.html' %}
+{% block title %} purchase success {% endblock %}
+{% block template %}
+{% load static %}
+    <div class="my-menu-flex-container">
+      <table class="table-dark table-sm table-responsive-sm table-hover table-bordered text-center mt-3 p-3" style= "width:100%">
+        <tr>
+          <td colspan="3">
+            <h3>Thank you for your purchase {{user.username}}!</h3>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <h4>Order Summary</h4>
+          </td>
+        </tr>
+
+        <tr>
+
+          {% for item in order.get_cart_ordered_items %}
+
+          {%if item.menu_item.category == "Pizza" and "Topping" in item.menu_item.name %}
+
+          {% if item.ptoppings != False %}
+          <td>
+            {{item.menu_item.sizes}}
+            {{ item.menu_item.name }}
+            Toppings: {{ item.ptoppings }}
+          </td>
+          {% endif %}
+
+          {% endif %}
+
+          {%if item.menu_item.category == "Pizza" and "Topping" not in item.menu_item.name %}
+          <td>
+            {{item.menu_item.sizes}}
+            {{ item.menu_item.name }} ;
+          </td>
+          {% endif %}
+
+          <!-- subs with no extras -->
+
+          {% if item.menu_item.category == "Subs" and item.num_extras == 0 %}
+
+          <td>
+            {{item.menu_item.sizes}}
+
+            {{ item.menu_item.name }}
+
+          </td>
+
+          {% endif %}
+
+          {% if item.num_extras > 0 %}
+          <td>
+            {{item.menu_item.sizes}}
+            {{ item.menu_item.name }}
+            Extras: {{ item.extras }}
+          </td>
+          {% endif %}
+
+
+          {% if item.menu_item.category != "Pizza" and item.menu_item.category != "Subs" %}
+
+          <td>
+            {% if item.menu_item.sizes%}
+            {{item.menu_item.sizes}}
+                  {% endif %}
+            {{ item.menu_item.name }}</td>
+
+          {% endif %}
+
+          {% if item.num_extras > 0 %}
+          <td>{{ item.menu_item.price }}
+            + {{item.extras_cost}}</td>
+
+          {% else %}
+
+          <td>{{item.menu_item.price}}</td>
+          {% endif %}
+
+        <tr>
+
+          {% endfor %}
+
+        </tr>
+        <tr>
+          <td><strong>Order Total</strong> </td>
+          <td> <strong>${{ order.get_cart_total }}</strong></td>
+        </tr>
+        <tr>
+          <td>
+
+            <a> <button href="{% url 'orders:profile' %}" class="pull-right btn btn-primary">Got to account profile</button> </a>
+          </td>
+
+          <td>
+            <a> <button href="{% url 'orders:index' %}" class="pull-right btn btn-primary">Return to Menu</button> </a>
+          </td>
+        </tr>
+      </table>
+
+
+    </div>
+{% endblock %}

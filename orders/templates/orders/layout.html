@@ -21,6 +21,9 @@
                     }
                 }
             },
+            variants:{
+                extends:['group-focus']
+            }
 
 
 
@@ -112,11 +115,33 @@
             <div id="menu" class="w-full sm:w-auto self-end sm:self-center sm:flex flex-col sm:flex-row items-center h-full py-1 pb-4 sm:py-0 sm:pb-0 hidden">
                 <div class="text-gray-600 lg:pr-4">
                     <ul class="space-y-6 tracking-wide font-medium text-sm md:flex md:space-y-0">
-                        <li><a href="#" class="block md:px-4 transition hover:text-yellow-700"><span>Menu</span></a></li>
-                        <li><a href="#" class="block md:px-4 transition hover:text-yellow-700"><span>Carrito</span></a></li>
-                        <li><a href="#" class="block md:px-4 transition hover:text-yellow-700"><span>Perfil</span></a></li>
+                        {% if request.user.is_authenticated %}
+                        
+                            <li><a href="/" class="block md:px-4 transition hover:text-yellow-700"><span>Menu</span></a></li>
+                            <li><a href="/profile" class="block md:px-4 transition hover:text-yellow-700"><span>Perfil</span></a></li>
+                                {% if current_order_products  %}
+                                    <li><a class="block md:px-4 transition hover:text-yellow-700" href="{% url 'orders:ordersummary' %}">Carrito</a></li>
+                                {% endif %}
+                                {% if order %}
+                                <li>
+                              <a class="block md:px-4 transition hover:text-yellow-700" href="{% url 'orders:ordersummary' %}">Carrito</a>
+                                </li>
+                              {% endif %}
+                        
+                              {% if current_order_products != NONE %}
+                             
+                   
+                                <li><a class="block md:px-4 transition hover:text-yellow-700" href="{% url 'orders:ordersummary' %}"><img src="/static/img/carrito-de-compras.png" width="25px" height="20px" >{{item_count}}</a></li>                   
+                             
+                             {% endif %}
+                        {% if request.user.is_superuser %}
+                        <li><a class="block md:px-4 transition hover:text-yellow-700" href="/admin">Admin</a></li>
+                        <li><a class="block md:px-4 transition hover:text-yellow-700" href="/allorders">All Orders</a></li>
+                        {% endif %}
+                        {%endif%}
                     </ul>
                 </div>
+
                 <div class="w-full space-y-2 border-yellow-200 lg:space-y-0 md:w-max lg:border-l">
                     {% if not request.user.is_authenticated %}
                         <button type="button" title="Start buying" class="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">

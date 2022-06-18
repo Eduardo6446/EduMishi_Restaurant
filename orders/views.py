@@ -18,7 +18,7 @@ import datetime
 
 # Create your views here.
 
-@login_required(redirect_field_name='')
+@login_required()
 def index(request):
 
     if not request.user.is_authenticated:
@@ -55,7 +55,7 @@ def login_view(request):
 
     if request.method == "GET":
 
-        return render(request, "orders/login.html")
+        return render(request,"orders/login.html")
 
     username = request.POST["username"]
     password = request.POST["password"]
@@ -131,7 +131,7 @@ def register_view(request):
 def profile(request):
 
     my_user_profile = Profile.objects.filter(user=request.user).first()
-    my_orders = Order.objects.filter(is_ordered=False, owner=my_user_profile) #ojo aqui tambien
+    my_orders = Order.objects.filter(is_ordered=True, owner=my_user_profile) #ojo aqui tambien
 
 
     context = { 'my_orders': my_orders, 'user': request.user}
@@ -142,7 +142,7 @@ def profile(request):
 def allorders(request):
 
     profiles = Profile.objects.all()
-    all_orders = Order.objects.filter(is_ordered=False)#ojoooooooooooooooooo aqui si no esta ordenado no sale
+    all_orders = Order.objects.filter(is_ordered=True)#ojoooooooooooooooooo aqui si no esta ordenado no sale
 
     context = { 'all_orders': all_orders}
 
@@ -151,11 +151,9 @@ def allorders(request):
 
 @login_required()
 def get_user_pending_order(request):
-    # obtener el pedido para el usuario correcto
     user_profile = get_object_or_404(Profile, user=request.user)
     order = Order.objects.filter(owner=user_profile, is_ordered=False)
     if order.exists():
-        # obtener el único pedido en la lista de pedidos filtrados con is_ordered = False
         return order[0]
     return 0
 
@@ -170,4 +168,205 @@ def check(request, **kwargs):
 
     return render(request, 'orders/check.html', context)
 
-    
+@login_required()
+def updaterecords(request, order_id):
+    order_to_purchase = Order.objects.filter(pk=order_id).first()
+
+    order_to_purchase.is_ordered=True
+    order_to_purchase.date_ordered=datetime.datetime.now()
+    order_to_purchase.save()
+
+    order_items = order_to_purchase.ordered_items.all()
+
+    order_items.update(is_ordered=True, date_ordered=datetime.datetime.now())
+
+    user_profile = get_object_or_404(Profile, user=request.user)
+
+    order_products = [item.menu_item for item in order_items]
+
+
+    user_profile.menu_items.add(*order_products)
+    user_profile.save()
+
+    return redirect(reverse('orders:success'))
+
+
+@login_required()
+def success(request, **kwargs):
+
+    user_profile = get_object_or_404(Profile, user=request.user)
+    finished_order = Order.objects.filter(owner=user_profile, is_ordered=True).last()
+
+    context = {
+        'order': finished_order,
+    }
+    return render(request, 'orders/purchase_success.html', context)
+
+
+@login_required()
+def order_details(request, **kwargs):
+
+    existing_order = get_user_pending_order(request)
+    user_profile = get_object_or_404(Profile, user=request.user)
+    order = Order.objects.filter(owner=user_profile, is_ordered=False)
+
+    context = {
+        'order': existing_order,
+    }
+    return render(request, 'orders/ordersummary.html', context)
+
+@login_required()
+def delete_from_cart(request, item_id):
+
+    item_to_delete = OrderItem.objects.filter(pk=item_id)
+    deleted_item = OrderItem.objects.get(pk=item_id)
+    if item_to_delete.exists():
+        item_to_delete[0].delete()
+        messages.info(request, f" {deleted_item.menu_item.sizes} \
+            {deleted_item.menu_item.name}  Eliminado del carrito")
+
+    return redirect(reverse('orders:ordersummary'))
+
+@login_required()
+def customize_order(request, food, *args,**kwargs):
+
+    if request.method == "GET":
+
+
+        toppings = Menu_Item.objects.filter(category__contains="Topping")
+
+        extras = Extras.objects.all()
+
+        extra_cheese=Extras.objects.filter(name__icontains="cheese")
+
+        menu_items = Menu_Item.objects.all()
+
+        ordered_item = Menu_Item.objects.filter(name=food).first()
+
+        context ={
+
+                "ordered_item": ordered_item,
+                "user": request.user,
+                "menu_item": menu_items,
+                "toppings": toppings,
+                "extras": extras,
+                'extra_cheese': extra_cheese
+
+            }
+        return render(request, "orders/customize_order.html", context)
+
+    user_profile = get_object_or_404(Profile, user=request.user)
+
+    menu_item = Menu_Item.objects.filter(name=food).first()
+    print (f"this is menu item in get {menu_item}")
+
+    toppings = []
+
+    if "Special" in food:
+        special_toppings = request.POST.getlist('special_toppings')
+        print(f"special_toppings:{special_toppings} \n")
+        toppings = special_toppings
+
+        if len(toppings) < 4:
+
+            messages.info(request, "You chose less than 3 toppings! \
+             A special pizza needs \
+            4 or more toppings! ")
+
+            menu_items = Menu_Item.objects.all()
+            toppings = Menu_Item.objects.filter(category__contains="Topping")
+            menu_items = Menu_Item.objects.all()
+            ordered_item = Menu_Item.objects.filter(name=food).first()
+
+            context ={
+
+                    "ordered_item": ordered_item,
+                    "user": request.user,
+                    "menu_item": menu_items,
+                    "toppings": toppings,
+
+                }
+            return render(request, "orders/customize_order.html", context)
+
+
+
+    if "Special" not in food and "Pizza" in food:
+        topping1 = request.POST["topping1"]
+        toppings.append(topping1)
+
+        try:
+            topping2 = request.POST["topping2"]
+            toppings.append(topping2)
+        except MultiValueDictKeyError:
+            toppings2 = False
+
+        try:
+            topping3 = request.POST["topping3"]
+            toppings.append(topping3)
+
+        except MultiValueDictKeyError:
+            topping3 = False
+
+    # get the extras
+    extras = []
+
+    num_extras = 0
+
+    if menu_item.category == "Subs":
+        sub_extras = request.POST.getlist('sub_extras')
+
+        for extra in sub_extras:
+            extras.append(extra + "+ .50c")
+            num_extras += 1
+
+
+    sub_extra = Menu_Item.objects.get(name="Sub_Extra")
+
+    extra_price = sub_extra.price
+    extras_cost = num_extras * extra_price
+
+    quantity = int(request.POST['quantity'])
+
+    for x in range(quantity):
+        order_item = OrderItem.objects.create(menu_item=menu_item,
+        ptoppings=toppings, extras=extras, num_extras=num_extras,
+        extras_cost=extras_cost )
+
+
+        user_order, status = Order.objects.get_or_create(owner=user_profile,
+                                                        is_ordered=False)
+
+        user_order.ordered_items.add(order_item)
+
+    if status:
+        user_order.save()
+
+    messages.info(request, f" {quantity} {menu_item.sizes} {menu_item.name} \
+                            añadido al carrito")
+
+    return HttpResponseRedirect(reverse('orders:index'))
+
+@login_required()
+def add_to_cart(request, **kwargs):
+    user_profile = get_object_or_404(Profile, user=request.user)
+
+    menu_item = Menu_Item.objects.filter(id=kwargs.get('item_id', "")).first() #item id sent from the url
+
+    quantity = int(request.POST['quantity'])
+
+
+    for x in range(quantity):
+        order_item = OrderItem.objects.create(menu_item=menu_item)
+
+        user_order, status = Order.objects.get_or_create(owner=user_profile,
+                                                        is_ordered=False)
+
+        user_order.ordered_items.add(order_item)
+
+    if status:
+        user_order.save()
+
+    messages.info(request, f" {quantity} {menu_item.sizes} \
+                            {menu_item.name} añadido")
+
+    return HttpResponseRedirect(reverse('orders:index'))
