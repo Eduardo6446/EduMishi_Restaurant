@@ -10,12 +10,21 @@ Register
 <section class="text-gray-600 body-font">
     <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
         <div class="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
-            <h1 class="title-font font-medium text-3xl text-gray-900">Slow-carb next level shoindcgoitch ethical authentic, poko scenester</h1>
-            <p class="leading-relaxed mt-4">Poke slow-carb mixtape knausgaard, typewriter street art gentrify hammock starladder roathse. Craies vegan tousled etsy austin.</p>
+            <h1 class="title-font font-medium text-3xl text-gray-900">Noch's has been in business for over 50 years!</h1>
+            <p class="leading-relaxed mt-4">We've been feeding Harvard and the surrounding area since 1966!</p>
             {% if message %}
-            <div class='text-center alert alert-info'>
-              <h3 style="color:red"> {{message}} </h3>
-            </div>
+            <div class="flex items-center bg-red-700 border-l-4 border-red-800 py-2 px-3 shadow-md mb-2">
+                <!-- icons -->
+                <div class="text-green-500 rounded-full bg-white mr-3">
+                  <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                  </svg>
+                </div>
+                <!-- message -->
+                <div class="text-white max-w-xs ">
+                  {{message}}
+                </div>
+              </div>
             {% endif %}
         </div>
         
@@ -53,8 +62,8 @@ Register
                 </div>
     
     
-                <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Registrarse</button>
-                <p class="text-xs text-gray-500 mt-3">Ya tienes una cuenta?<a href="{% url 'orders:login' %}" class="underline decoration-gray-500">Registrate</a></p>
+                <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Inicia Sesion</button>
+                <p class="text-xs text-gray-500 mt-3">Ya tienes una cuenta?<a href="{% url 'orders:login' %}" class="underline decoration-gray-500">Inicia Sesion</a></p>
             </div>
         </form>
 

@@ -104,8 +104,8 @@
 
         <nav id="site-menu" class="flex flex-col sm:flex-row w-full justify-between items-center px-4 sm:px-6 py-1 bg-white shadow sm:shadow-none border-t-4 border-red-900">
             <div class="w-full sm:w-auto self-start sm:self-center flex flex-row sm:flex-none flex-no-wrap justify-between items-center">
-                <a href="#" aria-label="logo" class="flex space-x-2 items-center">
-                    <img src="https://e7.pngegg.com/pngimages/801/880/png-clipart-pizza-pizza-sticker-pepperoni-salami-pizza-food-orange-thumbnail.png" class="w-12" alt="logo" width="133" height="122">
+                <a href="/" aria-label="logo" class="flex space-x-2 items-center">
+                    <img src="/static/img/pngegg.png" class="w-12" alt="logo" width="133" height="122">
                     <span class="text-2xl font-bold text-yellow-900">Edumishi's <span class="text-yellow-700">Restaurant</span></span>
                 </a>
                 <button id="menuBtn" class="hamburger block sm:hidden focus:outline-none" type="button" onclick="navToggle();">
@@ -144,20 +144,20 @@
 
                 <div class="w-full space-y-2 border-yellow-200 lg:space-y-0 md:w-max lg:border-l">
                     {% if not request.user.is_authenticated %}
-                        <button type="button" title="Start buying" class="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
+                        <button type="button" class="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
                             <span class="block text-yellow-800 font-semibold text-sm">
-                            Registrarse
+                            <a href="/register">Registrate</a>
                             </span>
                         </button>
-                        <button type="button" title="Start buying" class="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
+                        <button type="button" class="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
                             <span class="block text-yellow-900 font-semibold text-sm">
-                            Iniciar Sesion
+                            <a href="/login">Iniciar Sesion</a>
                             </span>
                         </button>
                     {% else %}
                     
 
-                        <button type="button" title="Start buying" class="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
+                        <button type="button" class="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
                             <span class="block text-yellow-900 font-semibold text-sm">
                                 <a href="/logout">Logout</a>
                             </span>
@@ -176,8 +176,8 @@
 
         <div class="bg-gray-100">
             <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-                <p class="text-gray-500 text-sm text-center sm:text-left">© 2020 Tailblocks —
-                    <a href="https://twitter.com/knyttneve" rel="noopener noreferrer" class="text-gray-600 ml-1" target="_blank">@knyttneve</a>
+                <p class="text-gray-500 text-sm text-center sm:text-left">2022 edumishi —
+                    <a href="https://twitter.com/knyttneve" rel="noopener noreferrer" class="text-gray-600 ml-1" target="_blank">@Edumishi</a>
                 </p>
                 <span class="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
             <a class="text-gray-500">

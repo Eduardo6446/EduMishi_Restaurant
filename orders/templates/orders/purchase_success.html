@@ -34,7 +34,7 @@
           {%if item.menu_item.category == "Pizza" and "Topping" not in item.menu_item.name %}
           <td>
             {{item.menu_item.sizes}}
-            {{ item.menu_item.name }} ;
+            {{ item.menu_item.name }} 
           </td>
           {% endif %}
 
@@ -91,11 +91,11 @@
         <tr>
           <td>
 
-            <a> <button href="{% url 'orders:profile' %}" class="pull-right btn btn-primary">Got to account profile</button> </a>
+            <a href="{% url 'orders:profile' %}" class="pull-right btn btn-primary">Got to account profile </a>
           </td>
 
           <td>
-            <a> <button href="{% url 'orders:index' %}" class="pull-right btn btn-primary">Return to Menu</button> </a>
+            <a href="{% url 'orders:index' %}" class="pull-right btn btn-primary">Return to Menu </a>
           </td>
         </tr>
       </table>

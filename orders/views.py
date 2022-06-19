@@ -142,7 +142,7 @@ def profile(request):
 def allorders(request):
 
     profiles = Profile.objects.all()
-    all_orders = Order.objects.filter(is_ordered=True)#ojoooooooooooooooooo aqui si no esta ordenado no sale
+    all_orders = Order.objects.filter(is_ordered=False)#ojoooooooooooooooooo aqui si no esta ordenado no sale
 
     context = { 'all_orders': all_orders}
 
