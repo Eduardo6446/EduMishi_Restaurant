@@ -2,104 +2,153 @@
 {% block title %} purchase success {% endblock %}
 {% block template %}
 {% load static %}
-    <div class="my-menu-flex-container">
-      <table class="table-dark table-sm table-responsive-sm table-hover table-bordered text-center mt-3 p-3" style= "width:100%">
-        <tr>
-          <td colspan="3">
-            <h3>Thank you for your purchase {{user.username}}!</h3>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3">
-            <h4>Order Summary</h4>
-          </td>
-        </tr>
-
-        <tr>
+    <div class="container px-6 py-20 flex flex-wrap items-center content-center">
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-2 text-gray-800 mx-auto">Gracias por tu compra {{user.username}}</h2>
+        <p class="text-gray-700 py-2">Factura n° {{order.id}} </p>
+        
+        <p class="text-gray-700">
 
           {% for item in order.get_cart_ordered_items %}
 
           {%if item.menu_item.category == "Pizza" and "Topping" in item.menu_item.name %}
 
           {% if item.ptoppings != False %}
-          <td>
+          
+            {% if item.num_extras == 0 %}
+
+              <span class="px-5">{{item.menu_item.price}}</span>
+
+            {% endif %}
+          
+            {% if item.num_extras > 0 %}
+            
+              <span class="px-5">{{ item.menu_item.price }} + {{item.extras_cost}}</span>
+
+            {% endif %}
+
+        </p>
+
+        <p class="text-gray-700">
+            
+          {{item.menu_item.sizes}}
+            
+          {{ item.menu_item.name }}
+            
+          Toppings: {{ item.ptoppings }}
+          
+            {% if item.num_extras == 0 %}
+
+              <span class="px-5">{{item.menu_item.price}}</span>
+
+            {% endif %}
+            
+            {% if item.num_extras > 0 %}
+
+              <span class="px-5">{{ item.menu_item.price }} + {{item.extras_cost}}</span>
+
+            {% endif %}
+        
+        </p>
+
+        {% endif %}
+
+        {% endif %}
+
+        {%if item.menu_item.category == "Pizza" and "Topping" not in item.menu_item.name %}
+          
+          <p>
+            
             {{item.menu_item.sizes}}
+            
             {{ item.menu_item.name }}
-            Toppings: {{ item.ptoppings }}
-          </td>
-          {% endif %}
+            
+            {% if item.num_extras == 0 %}
 
+              <span class="px-5">{{item.menu_item.price}}</span>
+            
+            {% endif %}
+            
+            {% if item.num_extras > 0 %}
+              <span class="px-5">{{ item.menu_item.price }} + {{item.extras_cost}}</span>
+            {% endif %}
+          </p>
+          
           {% endif %}
-
-          {%if item.menu_item.category == "Pizza" and "Topping" not in item.menu_item.name %}
-          <td>
-            {{item.menu_item.sizes}}
-            {{ item.menu_item.name }} 
-          </td>
-          {% endif %}
-
-          <!-- subs with no extras -->
 
           {% if item.menu_item.category == "Subs" and item.num_extras == 0 %}
 
-          <td>
+          <p>
             {{item.menu_item.sizes}}
 
             {{ item.menu_item.name }}
+            
+            {% if item.num_extras == 0 %}
 
-          </td>
+              <span class="px-5">{{item.menu_item.price}}</span>
+            
+            {% endif %}
+            
+            {% if item.num_extras > 0 %}
+            
+              <span class="px-5">{{ item.menu_item.price }} + {{item.extras_cost}}</span>
+            
+            {% endif %}
+
+          </p>
 
           {% endif %}
 
           {% if item.num_extras > 0 %}
-          <td>
+          <p>
             {{item.menu_item.sizes}}
             {{ item.menu_item.name }}
             Extras: {{ item.extras }}
-          </td>
+            
+            {% if item.num_extras == 0 %}
+
+            <span class="px-5">{{item.menu_item.price}}</span>
+
+            {% endif %}
+            
+            {% if item.num_extras > 0 %}
+              <span class="px-5">{{ item.menu_item.price }} + {{item.extras_cost}}</span>
+            {% endif %}
+          </p>
           {% endif %}
 
 
           {% if item.menu_item.category != "Pizza" and item.menu_item.category != "Subs" %}
 
-          <td>
+          <p>
             {% if item.menu_item.sizes%}
             {{item.menu_item.sizes}}
                   {% endif %}
-            {{ item.menu_item.name }}</td>
+            {{ item.menu_item.name }}
+            
+            {% if item.num_extras == 0 %}
 
-          {% endif %}
+              <span class="px-5">{{item.menu_item.price}}</span>
+            {% endif %}
 
-          {% if item.num_extras > 0 %}
-          <td>{{ item.menu_item.price }}
-            + {{item.extras_cost}}</td>
+            {% if item.num_extras > 0 %}
+              <span class="px-5">{{ item.menu_item.price }} + {{item.extras_cost}}</span>
+            {% endif %}
+          
+          </p>
 
-          {% else %}
-
-          <td>{{item.menu_item.price}}</td>
-          {% endif %}
-
-        <tr>
-
+          {% endif %}    
+          
           {% endfor %}
 
-        </tr>
-        <tr>
-          <td><strong>Order Total</strong> </td>
-          <td> <strong>${{ order.get_cart_total }}</strong></td>
-        </tr>
-        <tr>
-          <td>
-
-            <a href="{% url 'orders:profile' %}" class="pull-right btn btn-primary">Got to account profile </a>
-          </td>
-
-          <td>
-            <a href="{% url 'orders:index' %}" class="pull-right btn btn-primary">Return to Menu </a>
-          </td>
-        </tr>
-      </table>
-
-
+          <p><strong>Order Total</strong><span class="px-3"><strong>${{ order.get_cart_total }}</strong></span></p>
+      </div>     
     </div>
+
+    <a href="{% url 'orders:profile' %}" class="pull-right btn btn-primary">Got to account profile </a>
+          
+
+          
+    <a href="{% url 'orders:index' %}" class="pull-right btn btn-primary">Return to Menu </a>
+    
 {% endblock %}
