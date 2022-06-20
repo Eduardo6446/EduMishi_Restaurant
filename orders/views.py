@@ -1,3 +1,4 @@
+from multiprocessing import context
 from textwrap import dedent
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
@@ -10,7 +11,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib import messages
 
 from .models import (Topping, Menu_Item, Profile,
-Extras, Order, OrderItem,  User, )
+Extras, Order, OrderItem,  User, notices, )
 
 import datetime
 
@@ -370,3 +371,17 @@ def add_to_cart(request, **kwargs):
                             {menu_item.name} añadido")
 
     return HttpResponseRedirect(reverse('orders:index'))
+
+
+def notices_view(request, **kwargs):
+
+    #view for the notices page
+
+    if request.method == "GET":
+            
+            notice = notices.objects.all()
+            context = {
+                'notice': notice,
+            }
+
+    return render(request, 'orders/notices.html', context)
