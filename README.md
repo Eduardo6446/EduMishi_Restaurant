@@ -37,3 +37,12 @@ ese se va al login de una vez
 
 
 -Toque Personal: Agregar al menos una funcionalidad adicional de tu elección a la aplicación web. Posibles inclusiones: permitir a los Administradores del sitio de marcar las órdenes como completadas y permitir a los usuarios el ver el estado de sus órdenes pendientes o las completadas, integrándose con la API Stripe para permitirle a los usuarios usar en realidad una tarjeta de crédito para realizar una compra durante la facturación, o soportar el envío de confirmaciones email a los usuarios una vez que sus compras estén completas. Si necesitas usar cualquier credencial (como contraseñas o credenciales API) para tu toque personal, asegúrate de no guardar cualquiera de esas credenciales en tu código fuente, ¡es mejor usar variables de entorno!
+
+# Seccion de noticias xd
+
+ya estaba cansao losiento
+
+![image](https://user-images.githubusercontent.com/74506004/174620922-ecd46bf4-924e-4f0c-bb6d-e9c1b2278b05.png)
+
+![image](https://user-images.githubusercontent.com/74506004/174621092-ff7e03ad-eb76-41ad-ae2d-9ffe116d537b.png)
+
