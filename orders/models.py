@@ -86,7 +86,6 @@ class Extras(models.Model):
 
 
 
-# use mi modelo de usuario personalizado y guárdelo cuando se cree el usuario.
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
@@ -152,7 +151,6 @@ class Order(models.Model):
 
         return sum([item.menu_item.price for item in self.ordered_items.all()]
         + [item.extras_cost for item in self.ordered_items.all()])
-        #.exclude(is_topping=True)])
 
 
     def __str__(self):
@@ -163,3 +161,11 @@ class Order(models.Model):
         Ordered Items:{self.ordered_items.all()} -- \
         "
 
+
+class notices(models.Model):
+    title = models.CharField(max_length=50)
+    content = models.TextField(max_length=1000)
+    description = models.TextField(max_length=100)
+
+    def __str__(self):
+        return "%s (%s)" % (self.title, self.id)

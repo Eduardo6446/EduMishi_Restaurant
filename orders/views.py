@@ -142,7 +142,7 @@ def profile(request):
 def allorders(request):
 
     profiles = Profile.objects.all()
-    all_orders = Order.objects.filter(is_ordered=False)#ojoooooooooooooooooo aqui si no esta ordenado no sale
+    all_orders = Order.objects.filter(is_ordered=True)#ojoooooooooooooooooo aqui si no esta ordenado no sale
 
     context = { 'all_orders': all_orders}
 
@@ -269,9 +269,9 @@ def customize_order(request, food, *args,**kwargs):
 
         if len(toppings) < 4:
 
-            messages.info(request, "You chose less than 3 toppings! \
-             A special pizza needs \
-            4 or more toppings! ")
+            messages.info(request, "Elegiste menos de 4 ingredientes! \
+             una pizza especial necesita \
+            4 o mas ingredientes! ")
 
             menu_items = Menu_Item.objects.all()
             toppings = Menu_Item.objects.filter(category__contains="Topping")
