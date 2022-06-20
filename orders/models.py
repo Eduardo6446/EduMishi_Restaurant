@@ -167,8 +167,9 @@ class notices(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField(max_length=1000)
     description = models.TextField(max_length=100)
+    fecha = models.DateTimeField()
 
     def __str__(self):
         return f" title:{self.title} - content:{self.content} - \
-        Description:{self.description}"
+        Description:{self.description} - fecha:{self.fecha}"
 

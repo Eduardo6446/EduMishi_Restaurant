@@ -118,6 +118,7 @@
                         {% if request.user.is_authenticated %}
                         
                             <li><a href="/" class="block md:px-4 transition hover:text-yellow-700"><span>Menu</span></a></li>
+                            <li><a href="/notices" class="block  md:px-4 transition hover:text-yellow-700"><span>Noticias</span></a></li>
                             <li><a href="/profile" class="block md:px-4 transition hover:text-yellow-700"><span>Perfil</span></a></li>
                                 {% if current_order_products  %}
                                     <li><a class="block md:px-4 transition hover:text-yellow-700" href="{% url 'orders:ordersummary' %}">Carrito</a></li>
