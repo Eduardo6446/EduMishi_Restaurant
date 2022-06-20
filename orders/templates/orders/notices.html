@@ -2,17 +2,46 @@
 
 {%block template%}
 
-<div class="container">
 
-    <div class="py-20">
-        {% for notices in notice %}
-            <h1>{{ notices.title }}</h1>
-            <h1>{{ notices.content }}</h1>
-            <h1>{{ notices.description }}</h1>
-        {% endfor %}
+<div class="container w-full md:max-w-3xl mx-auto pt-20">
+    {% for notices in notice %}
+
+        
+    <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal" style="font-family:Georgia,serif;">
+
+        <!--Title-->
+        <div class="font-sans">
+                    <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">{{ notices.title }}</h1>
+                    <p class="text-sm md:text-base font-normal text-gray-600">Published 19 February 2019</p>
+        </div>
+
+
+        <!--Post Content-->
+
+        <p class="py-6">{{ notices.content }}.</p>
+
+
+        <ol>
+            <li class="py-3">{{ notices.description }}.</li>
+        </ol>
+
+
+        <!--/ Post Content-->
+
     </div>
 
+
+
+    <!--Divider-->
+    <hr class="border-b-2 border-gray-400 mb-8 mx-4">
+
+    {% endfor %}
+    <!--/Next & Prev Links-->
+
 </div>
+<!--/container-->
+
+
 
 
 {%endblock%}
